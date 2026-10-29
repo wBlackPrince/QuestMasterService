@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/QuestMasterService.Contracts/QuestMasterService.Contracts.csproj" />
+    <Project Path="src/QuestMasterService.Core/QuestMasterService.Core.csproj" />
+    <Project Path="src/QuestMasterService.Domain/QuestMasterService.Domain.csproj" />
+    <Project Path="src/QuestMasterService.Infrastructure.Postgres/QuestMasterService.Infrastructure.Postgres.csproj" />
+    <Project Path="src/QuestMasterService.Web/QuestMasterService.Web.csproj" />
+  </Folder>
+</Solution>

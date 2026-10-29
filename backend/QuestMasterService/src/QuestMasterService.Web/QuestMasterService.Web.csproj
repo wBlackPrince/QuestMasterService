@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <ProjectReference Include="..\QuestMasterService.Contracts\QuestMasterService.Contracts.csproj" />
+    <ProjectReference Include="..\QuestMasterService.Core\QuestMasterService.Core.csproj" />
+    <ProjectReference Include="..\QuestMasterService.Domain\QuestMasterService.Domain.csproj" />
+    <ProjectReference Include="..\QuestMasterService.Infrastructure.Postgres\QuestMasterService.Infrastructure.Postgres.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
+    <PackageReference Include="Scalar.AspNetCore" />
+  </ItemGroup>
+
+</Project>
