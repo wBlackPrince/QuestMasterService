@@ -14,6 +14,12 @@ Node.js, Docker, PostgreSQL и другие сервисы для текущег
 ```powershell
 dotnet restore backend/QuestMasterService/QuestMasterService.slnx
 dotnet build backend/QuestMasterService/QuestMasterService.slnx
+```
+
+`QuestMasterService.Web` ожидает PostgreSQL connection string с именем `Postgres`. Перед запуском задайте его через защищённую конфигурацию, например:
+
+```powershell
+$env:ConnectionStrings__Postgres = "Host=<host>;Port=5432;Database=<database>;Username=<user>;Password=<password>"
 dotnet run --project backend/QuestMasterService/src/QuestMasterService.Web
 ```
 

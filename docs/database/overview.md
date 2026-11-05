@@ -1,7 +1,7 @@
 # Хранение данных
 
-Работающая база данных не настроена. В `appsettings.json` и `appsettings.Development.json` нет connection strings; в solution не найдены `DbContext`, EF configurations, migrations, repositories, Dapper queries или вызовы `UseNpgsql`.
+В проекте `QuestMasterService.Infrastructure.Postgres` добавлен `QuestMasterDbContext` и EF Core-конфигурации моделей попыток, ответов, вопросов, пар и вариантов. В `Program.cs` контекст подключён через Npgsql.
 
-Проект `QuestMasterService.Infrastructure.Postgres` ссылается на `Microsoft.EntityFrameworkCore`, `Microsoft.EntityFrameworkCore.Design`, `Npgsql.EntityFrameworkCore.PostgreSQL` и `Dapper`. Это указывает на планируемую PostgreSQL-инфраструктуру, но не подтверждает схему, имя базы, подключения или persistence strategy.
+Для запуска требуется connection string с именем `Postgres` (например, environment variable `ConnectionStrings__Postgres`). В tracked `appsettings*.json` значения нет. Миграции, repositories и Dapper queries пока отсутствуют.
 
 Не следует добавлять connection string в tracked `appsettings*.json`. Когда persistence появится, документацию нужно дополнить перечнем миграций, моделью данных, переменными окружения, жизненным циклом миграций и health-check configuration.

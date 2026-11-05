@@ -14,7 +14,7 @@
 
 Явно используется только `ASPNETCORE_ENVIRONMENT` в launch profile. В коде она определяет публикацию OpenAPI и Scalar: они отключены в `Production`.
 
-Connection strings, JWT secrets, API keys и прочие секреты не определены. Если они будут добавлены, передавайте их защищённым внешним способом (например, environment variables или secret store), не помещая реальные значения в исходный код и документацию.
+Web-проект ожидает connection string `Postgres`; задайте его защищённым внешним способом, например `ConnectionStrings__Postgres`. JWT secrets и API keys не определены. Не помещайте реальные значения в исходный код и документацию.
 
 ## Конфигурации, которых нет
 
