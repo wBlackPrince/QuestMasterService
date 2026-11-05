@@ -1,0 +1,35 @@
+# Настройка разработки
+
+## Требования
+
+- .NET SDK, поддерживающий `net10.0`. В исследованной среде установлен SDK `10.0.401` и ASP.NET Core runtime `10.0.12`.
+- Git.
+
+Node.js, Docker, PostgreSQL и другие сервисы для текущего запуска не требуются: frontend и database integration отсутствуют.
+
+## Restore, build, run
+
+Запускайте команды из корня репозитория:
+
+```powershell
+dotnet restore backend/QuestMasterService/QuestMasterService.slnx
+dotnet build backend/QuestMasterService/QuestMasterService.slnx
+dotnet run --project backend/QuestMasterService/src/QuestMasterService.Web
+```
+
+`launchSettings.json` задаёт для профиля `http` адрес `http://localhost:5113` и `ASPNETCORE_ENVIRONMENT=Development`. После запуска проверьте:
+
+```powershell
+Invoke-WebRequest http://localhost:5113/health
+Invoke-RestMethod http://localhost:5113/api/Test
+```
+
+Development OpenAPI UI: `http://localhost:5113/scalar/v1`.
+
+## Запуск всего проекта
+
+В корне присутствует пустой `compose.yml`, но Docker services в нём не объявлены. Поэтому «запуск всего проекта» сейчас эквивалентен запуску единственного Web-проекта. Отдельных микросервисов или frontend-проекта нет.
+
+## Отладка
+
+Откройте `backend/QuestMasterService/QuestMasterService.slnx` в IDE с поддержкой .NET 10 и выберите startup project `QuestMasterService.Web`. Либо запустите `dotnet run` в Debug configuration и присоедините debugger к процессу.

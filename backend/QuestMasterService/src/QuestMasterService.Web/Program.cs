@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using QuestMasterService.Infrastructure.Postgres;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +10,13 @@ builder.Services.AddOpenApi();
 // Для тестового контроллера
 builder.Services.AddControllers();
 
-builder.Services.AddHealthChecks();
+string connectionString = builder.Configuration.GetConnectionString("Postgres")
+    ?? throw new InvalidOperationException("Connection string 'Postgres' is not configured.");
+
+builder.Services.AddDbContext<QuestMasterDbContext>(options => options.UseNpgsql(connectionString));
+
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<QuestMasterDbContext>();
 
 WebApplication app = builder.Build();
 
