@@ -43,6 +43,14 @@ dotnet ef migrations add InitialCreate `
     --output-dir Persistence\Migrations
 ```
 
+Примените миграции к базе данных:
+
+```powershell
+dotnet ef database update `
+    --project .\src\QuestMasterService.Infrastructure.Postgres\QuestMasterService.Infrastructure.Postgres.csproj `
+    --startup-project .\src\QuestMasterService.Web\QuestMasterService.Web.csproj
+```
+
 ## Запуск всего проекта
 
 `compose.yml` запускает PostgreSQL без volume. Запустите инфраструктуру из корня репозитория командой `docker compose up -d`, после чего используйте строку подключения к `localhost:5432`. Отдельных микросервисов или frontend-проекта нет.
