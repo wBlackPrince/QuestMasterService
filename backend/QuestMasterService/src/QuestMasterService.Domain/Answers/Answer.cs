@@ -9,6 +9,11 @@ public abstract class Answer
     public AnswerCorrectness IsCorrect { get; protected set; }
     public Guid AttemptId { get; }
 
+    protected Answer()
+    {
+        PointsAwarded = null!;
+    }
+
     protected Answer(Guid id, AnswerType type, Guid questionId,
         PointsAwarded pointsAwarded, AnswerCorrectness isCorrect, Guid attemptId)
     {

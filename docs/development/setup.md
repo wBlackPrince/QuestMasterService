@@ -32,9 +32,20 @@ Invoke-RestMethod http://localhost:5113/api/Test
 
 Development OpenAPI UI: `http://localhost:5113/scalar/v1`.
 
+## Миграции EF Core
+
+Из каталога `backend/QuestMasterService` создайте начальную миграцию:
+
+```powershell
+dotnet ef migrations add InitialCreate `
+    --project .\src\QuestMasterService.Infrastructure.Postgres\QuestMasterService.Infrastructure.Postgres.csproj `
+    --startup-project .\src\QuestMasterService.Web\QuestMasterService.Web.csproj `
+    --output-dir Persistence\Migrations
+```
+
 ## Запуск всего проекта
 
-В корне присутствует пустой `compose.yml`, но Docker services в нём не объявлены. Поэтому «запуск всего проекта» сейчас эквивалентен запуску единственного Web-проекта. Отдельных микросервисов или frontend-проекта нет.
+`compose.yml` запускает PostgreSQL без volume. Запустите инфраструктуру из корня репозитория командой `docker compose up -d`, после чего используйте строку подключения к `localhost:5432`. Отдельных микросервисов или frontend-проекта нет.
 
 ## Отладка
 

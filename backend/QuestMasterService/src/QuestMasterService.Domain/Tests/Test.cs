@@ -5,12 +5,15 @@ namespace QuestMasterService.Domain;
 public sealed class Test
 {
     public Guid Id { get; }
-    public TestTitle Title { get; private set; }
-    public TestDescription Description { get; private set; }
-    public MaxAttempts MaxAttempts { get; private set; }
+    public TestTitle Title { get; private set; } = default!;
+    public TestDescription Description { get; private set; } = default!;
+    public MaxAttempts MaxAttempts { get; private set; } = default!;
 
     private readonly List<Question> _questions = new();
     public IReadOnlyList<Question> Questions => _questions.AsReadOnly();
+
+    // EF Core
+    private Test() { }
 
     private Test(Guid id, TestTitle title, TestDescription description, MaxAttempts maxAttempts)
     {

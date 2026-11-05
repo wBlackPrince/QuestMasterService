@@ -8,6 +8,8 @@ public sealed class MatchAnswerConfiguration : IEntityTypeConfiguration<MatchAns
 {
     public void Configure(EntityTypeBuilder<MatchAnswer> builder)
     {
+        builder.HasBaseType<Answer>();
+
         builder.PrimitiveCollection(answer => answer.UserMatches)
             .HasField("_userMatches")
             .HasColumnName("user_matches");

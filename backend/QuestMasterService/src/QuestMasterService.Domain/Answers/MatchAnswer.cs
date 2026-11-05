@@ -7,6 +7,9 @@ public sealed class MatchAnswer : Answer
     private readonly List<Guid> _userMatches = new();
     public IReadOnlyList<Guid> UserMatches => _userMatches.AsReadOnly();
 
+    // EF Core
+    private MatchAnswer() { }
+
     private MatchAnswer(Guid id, Guid questionId, PointsAwarded pointsAwarded,
         AnswerCorrectness isCorrect, Guid attemptId)
         : base(id, AnswerType.Match, questionId, pointsAwarded, isCorrect, attemptId)

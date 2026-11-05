@@ -5,10 +5,13 @@ namespace QuestMasterService.Domain;
 public sealed class Match
 {
     public Guid Id { get; }
-    public MatchLeft Left { get; private set; }
-    public MatchRight Right { get; private set; }
+    public MatchLeft Left { get; private set; } = default!;
+    public MatchRight Right { get; private set; } = default!;
     public bool IsCorrect { get; private set; }
     public Guid QuestionId { get; }
+
+    // EF Core
+    private Match() { }
 
     private Match(Guid id, MatchLeft left, MatchRight right, bool isCorrect, Guid questionId)
     {

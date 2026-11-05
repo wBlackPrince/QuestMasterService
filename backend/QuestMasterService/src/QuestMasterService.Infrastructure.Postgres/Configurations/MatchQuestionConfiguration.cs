@@ -8,6 +8,8 @@ public sealed class MatchQuestionConfiguration : IEntityTypeConfiguration<MatchQ
 {
     public void Configure(EntityTypeBuilder<MatchQuestion> builder)
     {
+        builder.HasBaseType<Question>();
+
         builder.PrimitiveCollection(question => question.Matches)
             .HasField("_matchIds")
             .HasColumnName("match_ids");

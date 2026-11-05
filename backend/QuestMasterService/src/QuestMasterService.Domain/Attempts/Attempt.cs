@@ -14,6 +14,9 @@ public sealed class Attempt
     private readonly List<Answer> _answers = new();
     public IReadOnlyList<Answer> Answers => _answers.AsReadOnly();
 
+    // EF Core
+    private Attempt() { }
+
     private Attempt(Guid id, Guid testId, Guid userId, DateTime startedAt)
     {
         Id = id;

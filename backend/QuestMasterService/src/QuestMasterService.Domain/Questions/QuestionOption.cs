@@ -5,9 +5,12 @@ namespace QuestMasterService.Domain;
 public sealed class QuestionOption
 {
     public Guid Id { get; }
-    public OptionText Text { get; private set; }
+    public OptionText Text { get; private set; } = default!;
     public bool IsCorrect { get; private set; }
     public Guid QuestionId { get; }
+
+    // EF Core
+    private QuestionOption() { }
 
     private QuestionOption(Guid id, OptionText text, bool isCorrect, Guid questionId)
     {

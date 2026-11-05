@@ -7,6 +7,9 @@ public sealed class MatchQuestion : Question
     private readonly List<Guid> _matchIds = new();
     public IReadOnlyList<Guid> Matches => _matchIds.AsReadOnly();
 
+    // EF Core
+    private MatchQuestion() { }
+
     private MatchQuestion(Guid id, QuestionDescription description, PointsCost pointsCost,
         Guid testId, PositionIndex positionIndex)
         : base(id, description, QuestionType.Match, pointsCost, testId, positionIndex)

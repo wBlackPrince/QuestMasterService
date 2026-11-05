@@ -4,7 +4,10 @@ namespace QuestMasterService.Domain;
 
 public sealed class TextAnswer : Answer
 {
-    public UserAnswerText UserAnswer { get; private set; }
+    public UserAnswerText UserAnswer { get; private set; } = default!;
+
+    // EF Core
+    private TextAnswer() { }
 
     private TextAnswer(Guid id, Guid questionId, PointsAwarded pointsAwarded,
         AnswerCorrectness isCorrect, Guid attemptId, UserAnswerText userAnswer)

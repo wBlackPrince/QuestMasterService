@@ -1,6 +1,23 @@
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using QuestMasterService.Infrastructure.Postgres;
+using DotNetEnv;
+
+string envPath = Path.GetFullPath(
+    Path.Combine(
+        Directory.GetCurrentDirectory(),
+        "../../.env"));
+
+Env.Load(envPath);
+
+Console.WriteLine($"Current directory: {Directory.GetCurrentDirectory()}");
+
+Console.WriteLine(
+    $"Env file exists: {File.Exists(Path.Combine(Directory.GetCurrentDirectory(), ".env"))}");
+
+Console.WriteLine(
+    $"Connection string exists: {Environment.GetEnvironmentVariable("CONNECTIONSTRINGS__POSTGRES") is not null}");
+
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

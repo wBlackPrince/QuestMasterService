@@ -7,6 +7,9 @@ public sealed class OptionsAnswer : Answer
     private readonly List<Guid> _userOptions = new();
     public IReadOnlyList<Guid> UserOptions => _userOptions.AsReadOnly();
 
+    // EF Core
+    private OptionsAnswer() { }
+
     private OptionsAnswer(Guid id, Guid questionId, PointsAwarded pointsAwarded,
         AnswerCorrectness isCorrect, Guid attemptId)
         : base(id, AnswerType.Option, questionId, pointsAwarded, isCorrect, attemptId)
