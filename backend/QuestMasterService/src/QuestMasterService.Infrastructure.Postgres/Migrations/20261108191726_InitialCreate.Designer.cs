@@ -12,8 +12,8 @@ using QuestMasterService.Infrastructure.Postgres;
 namespace QuestMasterService.Infrastructure.Postgres.Migrations
 {
     [DbContext(typeof(QuestMasterDbContext))]
-    [Migration("20261108151533_AddTests")]
-    partial class AddTests
+    [Migration("20261108191726_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

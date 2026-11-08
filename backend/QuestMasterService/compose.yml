@@ -13,3 +13,11 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      shared-db:
+        aliases:
+          - questmaster-postgres
+
+networks:
+  shared-db:
+    external: true
