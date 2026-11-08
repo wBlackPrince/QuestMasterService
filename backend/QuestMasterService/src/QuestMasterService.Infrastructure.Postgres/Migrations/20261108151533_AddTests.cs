@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace QuestMasterService.Infrastructure.Postgres.Persistence.Migrations
+namespace QuestMasterService.Infrastructure.Postgres.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class AddTests : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,22 +28,17 @@ namespace QuestMasterService.Infrastructure.Postgres.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "questions",
+                name: "tests",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
+                    title = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     description = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: false),
-                    Type = table.Column<int>(type: "integer", nullable: false),
-                    points_cost = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
-                    test_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    position_index = table.Column<int>(type: "integer", nullable: false),
-                    match_ids = table.Column<Guid[]>(type: "uuid[]", nullable: true),
-                    option_ids = table.Column<Guid[]>(type: "uuid[]", nullable: true),
-                    right_answer = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true)
+                    max_attempts = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_questions", x => x.id);
+                    table.PrimaryKey("PK_tests", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,6 +62,31 @@ namespace QuestMasterService.Infrastructure.Postgres.Persistence.Migrations
                         name: "FK_answers_attempts_attempt_id",
                         column: x => x.attempt_id,
                         principalTable: "attempts",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "questions",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    description = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: false),
+                    Type = table.Column<int>(type: "integer", nullable: false),
+                    points_cost = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
+                    test_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    position_index = table.Column<int>(type: "integer", nullable: false),
+                    match_ids = table.Column<Guid[]>(type: "uuid[]", nullable: true),
+                    option_ids = table.Column<Guid[]>(type: "uuid[]", nullable: true),
+                    right_answer = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_questions", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_questions_tests_test_id",
+                        column: x => x.test_id,
+                        principalTable: "tests",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -126,6 +146,11 @@ namespace QuestMasterService.Infrastructure.Postgres.Persistence.Migrations
                 name: "IX_question_options_question_id",
                 table: "question_options",
                 column: "question_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_questions_test_id",
+                table: "questions",
+                column: "test_id");
         }
 
         /// <inheritdoc />
@@ -145,6 +170,9 @@ namespace QuestMasterService.Infrastructure.Postgres.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "questions");
+
+            migrationBuilder.DropTable(
+                name: "tests");
         }
     }
 }

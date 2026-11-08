@@ -2,18 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using QuestMasterService.Infrastructure.Postgres;
 
 #nullable disable
 
-namespace QuestMasterService.Infrastructure.Postgres.Persistence.Migrations
+namespace QuestMasterService.Infrastructure.Postgres.Migrations
 {
     [DbContext(typeof(QuestMasterDbContext))]
-    partial class QuestMasterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20261108151533_AddTests")]
+    partial class AddTests
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,6 +125,8 @@ namespace QuestMasterService.Infrastructure.Postgres.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TestId");
+
                     b.ToTable("questions", (string)null);
 
                     b.HasDiscriminator<int>("Type");
@@ -149,6 +154,33 @@ namespace QuestMasterService.Infrastructure.Postgres.Persistence.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("question_options", (string)null);
+                });
+
+            modelBuilder.Entity("QuestMasterService.Domain.Test", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("description");
+
+                    b.Property<int>("MaxAttempts")
+                        .HasColumnType("integer")
+                        .HasColumnName("max_attempts");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tests", (string)null);
                 });
 
             modelBuilder.Entity("QuestMasterService.Domain.MatchAnswer", b =>
@@ -321,6 +353,12 @@ namespace QuestMasterService.Infrastructure.Postgres.Persistence.Migrations
 
             modelBuilder.Entity("QuestMasterService.Domain.Question", b =>
                 {
+                    b.HasOne("QuestMasterService.Domain.Test", null)
+                        .WithMany("Questions")
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.OwnsOne("QuestMasterService.Domain.PointsCost", "PointsCost", b1 =>
                         {
                             b1.Property<Guid>("QuestionId")
@@ -469,6 +507,11 @@ namespace QuestMasterService.Infrastructure.Postgres.Persistence.Migrations
             modelBuilder.Entity("QuestMasterService.Domain.Attempt", b =>
                 {
                     b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("QuestMasterService.Domain.Test", b =>
+                {
+                    b.Navigation("Questions");
                 });
 #pragma warning restore 612, 618
         }
